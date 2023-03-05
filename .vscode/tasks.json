@@ -1,0 +1,79 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Setup project",
+      "type": "shell",
+      "command": "python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt && pre-commit install",
+      "problemMatcher": [],
+      "detail": "python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt && pre-commit install"
+    },
+    {
+      "label": "New competitive programming problem",
+      "type": "shell",
+      "command": "mkdir -p \"${problemFolder}\" && cp base.cpp \"${problemFolder}/${input:problemName}.cpp\" && touch \"${problemFolder}/input.txt\" \"${problemFolder}/expected.txt\"",
+      "problemMatcher": [],
+      "options": {
+        "env": {
+          "problemFolder": "${input:competitiveProgrammingPlatform}/${input:problemName}"
+        }
+      },
+      "detail": "Create problemName[directory], problemName.cpp, input.txt and expected.txt"
+    },
+    {
+      "label": "C/C++: g++ build and run active file",
+      "type": "cppbuild",
+      "command": "/usr/bin/g++",
+      "args": [
+        "${file}",
+        "-lm",
+        "-lcrypt",
+        "-O2",
+        "-std=c++11",
+        "-pipe",
+        "&&",
+        "./a.out",
+        "<",
+        "input.txt",
+        ">",
+        "output.txt"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": "build",
+      "detail": "compiler: /usr/bin/g++"
+    },
+    {
+      "label": "Compare output.txt and expected.txt",
+      "type": "shell",
+      "command": "diff output.txt expected.txt",
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": [],
+      "detail": "diff output.txt expected.txt"
+    },
+    {
+      "label": "Run pre-commit",
+      "type": "shell",
+      "command": "source .venv/bin/activate && pre-commit run",
+      "problemMatcher": [],
+      "detail": "source .venv/bin/activate && pre-commit run"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "competitiveProgrammingPlatform",
+      "type": "pickString",
+      "description": "Which competitive programming platform does the problem belong to?",
+      "options": ["Online Judge"]
+    },
+    {
+      "id": "problemName",
+      "type": "promptString",
+      "description": "What is the problem name?"
+    }
+  ]
+}
