@@ -32,6 +32,9 @@
 *.out
 *.app
 
+# Output
+output.txt
+
 ### Python ###
 # Environments
 .venv
