@@ -32,7 +32,7 @@
 *.out
 *.app
 
-# Output
+# Output files
 output.txt
 
 ### Python ###
